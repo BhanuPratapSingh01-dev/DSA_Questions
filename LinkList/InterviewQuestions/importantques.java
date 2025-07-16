@@ -4,6 +4,60 @@ public class InterviewQuestions {
 
     // https://leetcode.com/problems/linked-list-cycle
     // Amazon and Microsoft
+    
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = n;
+
+        do {
+            slow = findSquare(slow);
+            fast = findSquare(findSquare(fast));
+        } while (slow != fast);
+
+        if (slow == 1) {
+            return true;
+        }
+        return false;
+    }
+    private int findSquare(int number) {
+        int ans = 0;
+        while (number > 0) {
+            int rem = number % 10 ;
+            ans += rem * rem;
+            number /= 10;
+        }
+        return ans;
+    }
+    
+     public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode prev = null;
+        ListNode present = head;
+        ListNode next = present.next;
+
+        while (present != null) {
+            present.next = prev;
+            prev = present;
+            present = next;
+            if (next != null) {
+                next = next.next;
+            }
+        }
+        return prev;
+    }
+
+    public ListNode middleNode(ListNode head) {
+        ListNode s = head;
+        ListNode f = head;
+
+        while (f != null && f.next != null) {
+            s = s.next;
+            f = f.next.next;
+        }
+        return s;
+    }
     public boolean hasCycle(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
